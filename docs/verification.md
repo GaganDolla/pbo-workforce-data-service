@@ -22,9 +22,7 @@ direct function calls:
   response headers, repeated/unsupported parameters, 400/401/404/500 responses,
   and no database-path or API-key leakage in the checked responses/logs.
 
-The tool environment required permission to open local sockets; the HTTP suite
-was executed with that permission and passed. A test sandbox that prohibits
-loopback sockets must grant that capability to run this suite.
+The HTTP tests require permission to open a local loopback socket.
 
 ## Provided workbook
 
@@ -67,6 +65,4 @@ Infrastructure and Communities Canada equals the original March FTE (approximate
 confirmed the local library is synchronized with the lockfile. Dependency restore
 on a clean remote host and vulnerability scanning have not been performed.
 
-The supplied workbook was not modified. The only change to the candidate's
-original exploratory script was correcting `data/data.xlsx` to `Data/data.xlsx`
-so its path matches the actual directory on case-sensitive systems.
+The supplied workbook was not modified.

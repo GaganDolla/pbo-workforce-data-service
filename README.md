@@ -112,7 +112,7 @@ pinned in `renv.lock`. After intentionally changing dependencies, run
 The existing package versions establish reproducibility, not a claim that all
 dependencies have passed a vulnerability audit.
 
-## Scope and submission
+## Scope and limitations
 
 All requested prototype features and written responses are included. Limitations
 are explicit: one local SQLite writer, workbook-sized in-memory preparation,
@@ -120,6 +120,4 @@ no historical observation versions, no automated external-API synchronization,
 no organization SSO, and no Power BI connector. The design questions describe
 future work rather than claiming those features exist.
 
-See [publishing and submission steps](docs/submission.md) and
-[AI-use disclosure](docs/ai-use.md). Review the assumptions and make sure you can
-explain and modify the code before submitting.
+See the [AI-use disclosure](docs/ai-use.md).
