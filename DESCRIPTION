@@ -1,0 +1,20 @@
+Package: workforce.service
+Title: PBO Workforce Data Service Prototype
+Version: 0.1.0
+Description: Import workforce spreadsheets and provide a read-only REST API.
+Encoding: UTF-8
+Imports:
+    DBI,
+    RSQLite,
+    readxl,
+    jsonlite,
+    digest,
+    plumber,
+    testthat,
+    curl,
+    processx,
+    httpuv,
+    writexl,
+    dplyr,
+    tidyr,
+    renv

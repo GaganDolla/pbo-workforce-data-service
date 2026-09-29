@@ -1,0 +1,8 @@
+source("scripts/bootstrap.R")
+database <- Sys.getenv("WORKFORCE_DB", "var/workforce.sqlite")
+host <- Sys.getenv("WORKFORCE_HOST", "127.0.0.1")
+port <- parse_integer_parameter(Sys.getenv("WORKFORCE_PORT", "8000"), "port", 1, 65535)
+api_key <- Sys.getenv("WORKFORCE_API_KEY", "")
+validate_listener(host, api_key)
+router <- build_api(database, api_key)
+plumber::pr_run(router, host = host, port = port, docs = FALSE)

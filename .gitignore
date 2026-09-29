@@ -1,0 +1,14 @@
+.DS_Store
+.Rproj.user/
+.Rhistory
+.RData
+.Renviron
+.r-library/
+renv/library/
+renv/staging/
+renv/cache/
+var/
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+*.log

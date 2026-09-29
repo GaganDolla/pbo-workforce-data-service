@@ -1,0 +1,6 @@
+# Copy to .Renviron for local overrides, then restart R.
+# .Renviron is ignored by Git. Never commit a real API key.
+WORKFORCE_DB=var/workforce.sqlite
+WORKFORCE_HOST=127.0.0.1
+WORKFORCE_PORT=8000
+# WORKFORCE_API_KEY must be a randomly generated secret of at least 32 bytes.
