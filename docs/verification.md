@@ -3,6 +3,9 @@
 Verified locally on September 28, 2026, using R 4.4.2 on macOS ARM64 with the
 versions in `renv.lock`. No cloud deployment or Linux/Windows execution is claimed.
 
+The full test suite was run again on September 29, 2026 and passed with the same
+12 test cases and 112 assertions.
+
 ## Automated tests
 
 `Rscript scripts/test.R` passed **12 test cases and 112 assertions**, with no test
@@ -36,7 +39,7 @@ The HTTP tests require permission to open a local loopback socket.
 | Total | 44,460 |
 
 There are 101 department reference records after deduplicating one identical row.
-The import reports 66 issue/normalization events; multiple events can refer to
+The import reports 66 issue/normalization events. Multiple events can refer to
 the same source row, so this is not a count of rejected records.
 
 | Issue | Events |
@@ -52,11 +55,11 @@ the same source row, so this is not a count of rejected records.
 | Headcount-only source sheets | 2 |
 
 The earlier raw comparison found 34 FTE-above-headcount rows. After the invalid
-negative headcount becomes NULL, 33 comparisons against valid headcounts remain;
-the negative value is recorded separately as an invalid headcount.
+negative headcount becomes NULL, 33 comparisons against valid headcounts remain.
+The negative value is recorded separately as an invalid headcount.
 
 Reimporting the unchanged workbook returned `status: unchanged`, `run_id: 1`.
-SQLite `PRAGMA integrity_check` returned `ok`; `PRAGMA foreign_key_check` returned
+SQLite `PRAGMA integrity_check` returned `ok`. `PRAGMA foreign_key_check` returned
 no violations. A direct source check confirmed the 2015 Q1 student FTE for Housing,
 Infrastructure and Communities Canada equals the original March FTE (approximately
 8.84, retaining the source's floating-point precision).

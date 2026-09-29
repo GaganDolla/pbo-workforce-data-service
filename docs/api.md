@@ -22,7 +22,7 @@ Returns every registered department ordered by ID. No query parameters.
 }
 ```
 
-Names come from the reference sheet; accents and punctuation are preserved.
+Names come from the reference sheet. Accents and punctuation are preserved.
 Missing abbreviations are `null`. The array contains 101 entries for the supplied
 workbook after one identical reference row is removed. IDs are local database
 identifiers, not government organization codes.
@@ -31,12 +31,12 @@ identifiers, not government organization codes.
 
 | Parameter | Rules |
 | --- | --- |
-| `id` path | Positive integer, at most 2147483647; unknown valid ID returns 404 |
-| `year` query, optional | Single integer from 1900 to 2100; calendar year |
+| `id` path | Positive integer, at most 2147483647. Unknown valid ID returns 404 |
+| `year` query, optional | Single integer from 1900 to 2100. Calendar year |
 | `tenure` query, optional | One of `indeterminate`, `term`, `casual`, `student`, `missing` |
 
 Calendar quarter-end FTE: Q1 March, Q2 June, Q3 September, Q4 December. Data are
-ordered by year and quarter. Values retain decimals; no display rounding is applied.
+ordered by year and quarter. Values retain decimals. No display rounding is applied.
 
 Illustrative response, not a claim about a particular source department:
 
@@ -85,7 +85,7 @@ Without it, all five specified tenure fields appear in every returned row.
 | 400 | Invalid ID/filter syntax, out-of-range values, unknown/repeated query parameters |
 | 401 | Missing/incorrect API key when authentication is enabled |
 | 404 | Unknown department or route |
-| 500 | Unexpected failure; generic message with no database path or stack trace |
+| 500 | Unexpected failure. Generic message with no database path or stack trace |
 
 The API sets `Cache-Control: no-store` to avoid serving a stale dataset after
 replacement and `X-Content-Type-Options: nosniff`. It does not enable cross-origin

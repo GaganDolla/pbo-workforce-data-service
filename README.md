@@ -4,11 +4,25 @@ An R backend prototype for the PBO recruitment exercise. It imports all four
 worksheets of `Data/data.xlsx` into SQLite and serves the two required REST
 endpoints with Plumber. There is no frontend or upload endpoint.
 
+## Documentation
+
+Start with the design-question responses for the written part of the exercise.
+The other documents explain the implementation and its validation.
+
+| Document | Contents |
+| --- | --- |
+| [Design-question responses](docs/design-questions.md) | Answers to all three questions, including growth, synchronization, analyst workflows and code review |
+| [Database and import design](docs/architecture.md) | Schema, validation rules, import behaviour and quarterly FTE assumptions |
+| [API reference](docs/api.md) | Endpoints, filters, response examples and errors |
+| [Security assessment](docs/security.md) | Risks, priorities, implemented controls and deployment requirements |
+| [Verification results](docs/verification.md) | Test results, workbook import counts and known verification limits |
+| [AI-use disclosure](docs/ai-use.md) | Summary of AI assistance used for this exercise |
+
 ## Run locally
 
 Use R **4.4.2**, the version recorded in `renv.lock`. Run commands from the
 repository root, not from `R/` or `scripts/`. Internet access is needed for the
-initial package restore; later imports and requests run locally.
+initial package restore. Later imports and requests run locally.
 
 ```sh
 Rscript -e 'renv::restore(prompt = FALSE)'
@@ -32,13 +46,13 @@ curl 'http://127.0.0.1:8000/api/departments/1/fte?year=2025'
 curl 'http://127.0.0.1:8000/api/departments/1/fte?year=2025&tenure=indeterminate'
 ```
 
-Look up the department ID in the first response; department 1 may have no
+Look up the department ID in the first response. Department 1 may have no
 observations for a requested year. Empty results are valid.
 
 In RStudio, open `PBO Job.Rproj`, restart R to activate the project library, and
 run `renv::restore(prompt = FALSE)` in the Console. Then use the Terminal for the
-commands above. The original exploratory script, `scripts/inspect_data.R`, is preserved;
-it is not part of the importer.
+commands above. The original exploratory script, `scripts/inspect_data.R`, is preserved.
+It is not part of the importer.
 
 ## What is implemented
 
@@ -57,21 +71,21 @@ it is not part of the importer.
 The exercise does not define how monthly FTE becomes quarterly FTE. This prototype
 uses **calendar quarter-end snapshots**: March, June, September and December.
 It does not sum or average monthly workforce levels. Confirm this definition with
-analysts before operational use; changing it requires updating the query, tests
+analysts before operational use. Changing it requires updating the query, tests
 and documented contract together.
 
 An absent or invalid FTE is JSON `null`, not zero. A reported zero stays zero.
-RCMP and CAF provide headcount only; their records are imported but their FTE
+RCMP and CAF provide headcount only. Their records are imported but their FTE
 endpoint returns an empty array. See [the complete semantics](docs/api.md).
 
 ## Configuration and deployment
 
 | Environment variable | Default | Purpose |
 | --- | --- | --- |
-| `WORKFORCE_DB` | `var/workforce.sqlite` | SQLite file; API refuses to create a missing database |
-| `WORKFORCE_HOST` | `127.0.0.1` | Listen address; non-loopback requires an API key |
-| `WORKFORCE_PORT` | `8000` | TCP port, 1–65535 |
-| `WORKFORCE_API_KEY` | unset | If set, every request requires this value in `X-API-Key`; minimum 32 bytes |
+| `WORKFORCE_DB` | `var/workforce.sqlite` | SQLite file. API refuses to create a missing database |
+| `WORKFORCE_HOST` | `127.0.0.1` | Listen address. Non-loopback requires an API key |
+| `WORKFORCE_PORT` | `8000` | TCP port, 1 to 65535 |
+| `WORKFORCE_API_KEY` | unset | If set, every request requires this value in `X-API-Key`. Minimum 32 bytes |
 
 To import another copy explicitly:
 
@@ -93,7 +107,7 @@ These infrastructure controls are deployment prerequisites, not features this
 prototype claims to implement. See [security and limitations](docs/security.md).
 
 Keep the workbook and database on local storage. SQLite uses a single writer and
-a 5-second busy timeout; schedule imports away from peak activity. A transaction
+a 5-second busy timeout. Schedule imports away from peak activity. A transaction
 publishes the full replacement atomically. Requests use a read transaction so
 their queries see a consistent committed dataset. For backups, stop the processes
 before copying the SQLite file, or use SQLite's online backup mechanism. Verify
@@ -104,7 +118,7 @@ restoration before relying on a backup.
 `Rscript scripts/test.R` runs validation, database, query, XLSX integration and
 actual HTTP tests. HTTP tests start a temporary loopback server and clean up its
 process and database. The test process must be allowed to open a local socket.
-Fixtures are synthetic; the test suite does not depend on the supplied workbook.
+Fixtures are synthetic. The test suite does not depend on the supplied workbook.
 
 Dependencies for both application and tests are declared in `DESCRIPTION` and
 pinned in `renv.lock`. After intentionally changing dependencies, run

@@ -2,7 +2,7 @@
 
 The changes below are proposed extensions to the prototype.
 
-## Question 1 — Tens of millions of records
+## Question 1: Tens of millions of records
 
 The first thing I would change is the import. It currently reads the workbook
 into memory and replaces all observations in one transaction
@@ -21,7 +21,7 @@ expected number of users. Date partitioning or stored quarterly summaries could
 help, but I would add them only if the measurements justify the extra complexity.
 Monitoring, backups and a tested restore procedure would also be needed.
 
-## Question 2 — Daily updates and historical revisions
+## Question 2: Daily updates and historical revisions
 
 ### 1. Synchronization and data quality
 
@@ -80,7 +80,7 @@ I would review the highest-risk behaviour first:
    style comments would be non-blocking. For required changes, I would explain the
    impact and suggest a practical fix.
 
-## Question 3 — Power BI and Python
+## Question 3: Power BI and Python
 
 I would add a flat export with one row per department, quarter and tenure. The
 current response is easy to read, but a table is easier to load into Power BI or
@@ -88,7 +88,7 @@ pandas. It should include stable department IDs, bilingual labels, FTE, quality
 flags and the dataset release. Missing values must remain different from zero.
 
 For Python, I would provide a short example using `requests` and pandas, including
-authentication, timeouts and pagination. CSV would cover simple downloads; Parquet
+authentication, timeouts and pagination. CSV would cover simple downloads. Parquet
 would be useful for larger extracts. For Power BI, I would provide a tested Power
 Query example with the correct column types, credential setup and refresh steps.
 Date filters and revision information would help support incremental refreshes.
